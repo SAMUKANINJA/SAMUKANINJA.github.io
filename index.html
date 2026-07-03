@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Apps de Samuel Vieira · Mac</title>
 <meta name="description" content="Apps para macOS: Nicho (notch útil) e Dorso+ (postura). Download direto.">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="avatar.png">
 <style>
   :root{
     --bg:#0b0d12; --card:#14171f; --line:#232733; --fg:#f2f4f8; --mut:#9aa3b2;
@@ -52,11 +54,19 @@
   footer{text-align:center;color:var(--mut);font-size:12.5px;margin-top:40px;line-height:1.7}
   a.link{color:var(--amber);text-decoration:none}
   a.link:hover{text-decoration:underline}
+  .avatar{display:inline-block;width:78px;height:78px;border-radius:50%;overflow:hidden;
+    border:2px solid var(--line);margin-bottom:18px;transition:border-color .2s, transform .2s}
+  .avatar:hover{border-color:var(--amber);transform:scale(1.04)}
+  .avatar img{width:100%;height:100%;object-fit:cover;display:block}
 </style>
 </head>
 <body>
   <div class="wrap">
     <header>
+      <a class="avatar" href="https://samukaninja.github.io/midia-kit/#1" target="_blank" rel="noopener"
+         title="Media kit de Samuel Vieira">
+        <img src="avatar.png" alt="Samuel Vieira" width="78" height="78">
+      </a>
       <div class="kicker">Apps para macOS</div>
       <h1>Feitos para o seu Mac</h1>
       <p class="sub">Dois utilitários pequenos e caprichados. Baixe direto — sem loja, sem conta.</p>
@@ -81,7 +91,7 @@
         <div class="tag">Cuida da sua postura no Mac: avisa quando você curva as costas e ajuda a manter o hábito.</div>
         <ul class="feat"><li>Postura</li><li>Hidratação</li><li>Afastamento</li><li>PT · EN</li></ul>
         <div class="spacer"></div>
-        <a class="btn soon">Em breve</a>
+        <a class="btn cyan" href="https://github.com/SAMUKANINJA/DorsoPlus-releases/releases/latest">Baixar Dorso+</a>
         <div class="req">macOS 13+ · Apple Silicon · Intel</div>
       </div>
     </div>
