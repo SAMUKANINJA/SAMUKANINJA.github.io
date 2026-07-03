@@ -6,7 +6,7 @@
 <title>App · Samuel Vieira</title>
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
   <div class="wrap">
@@ -44,14 +44,32 @@
         Feito por um desenvolvedor independente, então o macOS pede uma confirmação sua na primeira vez.
         É seguro, leva 10 segundos e você só faz <b>uma vez</b> — depois o app se atualiza sozinho.
       </p>
-      <ol class="steps">
-        <li><b>Instale.</b> Abra o <code>.dmg</code> e arraste o app para <b>Aplicativos</b>.</li>
-        <li><b>Tente abrir.</b> Dê dois cliques no app. O macOS avisa que "não pôde verificar o desenvolvedor" —
-          clique em <b>OK</b> (nunca em "Mover para o Lixo").</li>
-        <li><b>Libere.</b> Vá em <b>Ajustes do Sistema → Privacidade e Segurança</b>, role até a mensagem
-          "O app foi bloqueado…" e clique em <b>Abrir Mesmo Assim</b>.</li>
-        <li><b>Pronto.</b> Confirme com Touch ID ou senha. Daí em diante o app abre normalmente e se atualiza sozinho.</li>
-      </ol>
+      <div class="methods">
+        <div class="method">
+          <div class="method-head">
+            <span class="method-ver">macOS 15 Sequoia · 26 Tahoe</span>
+            <span class="method-tag">mais novo</span>
+          </div>
+          <ol class="steps">
+            <li><b>Instale.</b> Abra o <code>.dmg</code> e arraste o app para <b>Aplicativos</b>.</li>
+            <li><b>Tente abrir.</b> Dê dois cliques no app. O macOS avisa que "não pôde verificar" —
+              clique em <b>OK</b> (nunca em "Mover para o Lixo").</li>
+            <li><b>Libere.</b> Vá em <b>Ajustes do Sistema → Privacidade e Segurança</b>, role até
+              "O app foi bloqueado…" e clique em <b>Abrir Mesmo Assim</b>.</li>
+            <li><b>Pronto.</b> Confirme com Touch ID ou senha.</li>
+          </ol>
+        </div>
+        <div class="method">
+          <div class="method-head">
+            <span class="method-ver">macOS 13 Ventura · 14 Sonoma</span>
+          </div>
+          <ol class="steps">
+            <li><b>Instale.</b> Abra o <code>.dmg</code> e arraste o app para <b>Aplicativos</b>.</li>
+            <li><b>Abra.</b> Clique com o <b>botão direito</b> no app (em Aplicativos) e escolha <b>Abrir</b>.</li>
+            <li><b>Pronto.</b> No aviso, clique em <b>Abrir</b>. Daí em diante o app abre normalmente.</li>
+          </ol>
+        </div>
+      </div>
     </section>
 
     <footer>
