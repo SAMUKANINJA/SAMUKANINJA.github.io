@@ -25,8 +25,13 @@ h1{font-size:clamp(30px,6vw,44px);font-weight:700;letter-spacing:-.02em;margin:1
 .sub{color:var(--mut);font-size:clamp(15px,2.5vw,17px);max-width:36ch;margin:0 auto}
 
 /* app grid (home) */
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-@media (max-width:640px){.grid{grid-template-columns:1fr}}
+/* Cards keep one width whatever the tab holds: three side by side on a wide
+   screen, two and the rest centered below on a mid-size one, and a tab with a
+   single app shows it centered instead of stuck to the left column. */
+.wrap.largo{max-width:1100px}
+.wrap.largo>header,.wrap.largo>.howto{max-width:680px;margin-left:auto;margin-right:auto}
+.grid{display:flex;flex-wrap:wrap;justify-content:center;gap:20px}
+.grid>.card{flex:0 1 340px;min-width:0}
 .card{background:var(--card);border:1px solid var(--line);border-radius:20px;
   padding:26px 24px 24px;display:flex;flex-direction:column;transition:border-color .2s, transform .2s}
 .card:hover{border-color:#33394a;transform:translateY(-2px)}
@@ -49,7 +54,7 @@ h1{font-size:clamp(30px,6vw,44px);font-weight:700;letter-spacing:-.02em;margin:1
   box-shadow:0 6px 20px rgba(255,138,61,.25);cursor:pointer;border:0}
 .btn:hover{filter:brightness(1.05)}
 .btn.cyan{background:linear-gradient(180deg,var(--cyan2),var(--cyan));box-shadow:0 6px 20px rgba(79,209,197,.22)}
-.btn.rec{background:linear-gradient(180deg,#ff7a6b,#e8493b);box-shadow:0 6px 20px rgba(232,73,59,.24);color:#fff}
+.btn.rec{background:linear-gradient(180deg,#d33d2d,#b93224);box-shadow:0 6px 20px rgba(201,54,40,.26);color:#fff}
 .btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--line);box-shadow:none}
 .btn.ghost:hover{border-color:var(--mut);filter:none}
 .abas{display:inline-flex;gap:4px;margin-top:26px;padding:4px;border:1px solid var(--line);border-radius:999px;background:var(--card)}
@@ -74,7 +79,8 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;margin-top:40px;line-
 .hero-info{flex:1;min-width:240px}
 .hero-info h1{font-size:clamp(28px,5vw,40px);margin:0 0 6px}
 .hero-info .tag{font-size:16px;color:var(--mut);min-height:0}
-.hero-actions{margin-top:16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.hero-actions{margin-top:16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.hero-actions .req{flex-basis:100%;text-align:left;margin:4px 0 0}
 .section{margin-top:36px}
 .section h2{font-size:14px;text-transform:uppercase;letter-spacing:.1em;color:var(--mut);margin-bottom:14px}
 .desc{font-size:15.5px;color:#d4d9e2;max-width:66ch}
@@ -90,7 +96,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;margin-top:40px;line-
   color:#151515;background:var(--amber);border-radius:999px;padding:2px 8px}
 .rel-date{color:var(--mut);font-size:13px;margin-left:auto}
 .rel-notes{color:#c7cdd9;font-size:13.5px;margin-top:8px;white-space:pre-wrap}
-.rel-dl{color:var(--amber);font-size:13px;text-decoration:none;margin-top:10px;display:inline-block}
+.rel-dl{color:var(--amber);font-size:13px;text-decoration:none;margin:10px 16px 0 0;display:inline-block}
 .rel-dl:hover{text-decoration:underline}
 .loading{color:var(--mut);font-size:14px;padding:8px 0}
 
@@ -119,3 +125,22 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;margin-top:40px;line-
   color:#151515;background:var(--amber);border-radius:999px;padding:2px 7px}
 [hidden]{display:none!important}
 .card [data-so] .btn{display:flex}
+
+/* ---- phones ---- */
+@media (max-width:640px){
+  body{padding:0 16px 48px}
+  header{padding:40px 0 26px}
+  .abas{margin-top:20px}
+  .grid{gap:14px}
+  .grid>.card{flex-basis:100%}
+  .card{padding:22px 18px 18px;border-radius:18px}
+  .card:hover{transform:none}
+  .icon{width:72px;height:72px;border-radius:17px}
+  .tag{min-height:0}
+  .howto{margin-top:32px;padding:20px 18px}
+  .hero{gap:16px;padding-top:20px}
+  .hero .icon{width:72px;height:72px}
+  .hero-info{min-width:0;flex-basis:100%}
+  .hero-actions .btn{flex:1 1 100%}
+  .rel-date{margin-left:0;flex-basis:100%}
+}

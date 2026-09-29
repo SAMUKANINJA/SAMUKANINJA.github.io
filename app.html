@@ -6,7 +6,7 @@
 <title>App · Samuel Vieira</title>
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="stylesheet" href="style.css?v=4">
+<link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
   <div class="wrap">
@@ -20,7 +20,7 @@
         <div class="hero-actions">
           <a class="btn" id="download" aria-disabled="true">Baixar</a>
           <a class="btn ghost" id="download-win" aria-disabled="true" hidden>Baixar para Windows</a>
-          <span class="req" id="req" style="margin:0"></span>
+          <span class="req" id="req"></span>
         </div>
       </div>
     </div>
@@ -163,7 +163,7 @@
                 '<span class="rel-date">' + formatDate(r.published_at) + "</span>" +
               "</div>" +
               (notes ? '<div class="rel-notes"></div>' : "") +
-              files.map(function (f) { return '<a class="rel-dl" href="' + f.url + '">↓ ' + f.label + "</a>"; }).join(" &nbsp; ");
+              files.map(function (f) { return '<a class="rel-dl" href="' + f.url + '">↓ ' + f.label + "</a>"; }).join("");
             if (notes) el.querySelector(".rel-notes").textContent = notes;
             box.appendChild(el);
           });
