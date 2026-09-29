@@ -3,6 +3,18 @@
 // the GitHub API can be read anonymously (and is CORS-enabled).
 
 const APPS = {
+  callai: {
+    name: "Call.AI",
+    icon: "callai.png",
+    accent: "rec",
+    tagline: "Grava, transcreve e escreve a ata das suas reuniões.",
+    description:
+      "Call.AI grava as reuniões do Teams, do Zoom e do Meet com duas faixas, a sua voz e a dos participantes, e avisa por uma pílula discreta quando uma chamada começa. Transcreve na própria máquina ou com a sua chave da OpenAI, separa quem falou e escreve a ata com as tarefas. As gravações ficam no seu computador; nada de conta.",
+    features: ["Gravação em duas faixas", "Aviso de reunião", "Transcrição", "Ata e tarefas", "Mac · Windows"],
+    req: "macOS 13 ou superior (Apple Silicon ou Intel) · Windows 10/11 64 bits",
+    repo: "SAMUKANINJA/CallAI-releases",
+    windows: true,
+  },
   nicho: {
     name: "Nicho",
     icon: "nicho.png",
@@ -37,22 +49,31 @@ async function fetchReleases(repo) {
   return r.json();
 }
 
-// The .dmg asset of a release (the actual download).
+// The download of a release for one platform. "mac" prefers the Apple Silicon
+// (or universal) DMG; apps that ship a single DMG keep working unchanged.
+function assetOf(release, kind) {
+  const assets = release.assets || [];
+  const named = (test) => assets.find((a) => test(a.name.toLowerCase()));
+  if (kind === "win") return named((n) => n.endsWith("-setup.exe"));
+  if (kind === "mac-intel") return named((n) => n.endsWith(".dmg") && n.includes("x64"));
+  return named((n) => n.endsWith(".dmg") && !n.includes("x64")) || named((n) => n.endsWith(".dmg"));
+}
+
 function dmgOf(release) {
-  return (release.assets || []).find((a) => a.name.toLowerCase().endsWith(".dmg"));
+  return assetOf(release, "mac");
 }
 
 // Wire a button/anchor to download the LATEST DMG directly. Falls back to the
 // releases page if the API is unreachable.
-async function wireSmartDownload(el, repo) {
+async function wireSmartDownload(el, repo, kind) {
   const fallback = "https://github.com/" + repo + "/releases/latest";
   el.setAttribute("href", fallback);
   el.setAttribute("aria-disabled", "true");
   try {
     const releases = await fetchReleases(repo);
-    const latest = releases.find((rel) => !rel.draft && dmgOf(rel));
-    const dmg = latest && dmgOf(latest);
-    if (dmg) el.setAttribute("href", dmg.browser_download_url);
+    const latest = releases.find((rel) => !rel.draft && assetOf(rel, kind));
+    const file = latest && assetOf(latest, kind);
+    if (file) el.setAttribute("href", file.browser_download_url);
   } catch (_) {
     /* keep fallback */
   } finally {

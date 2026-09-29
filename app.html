@@ -6,7 +6,7 @@
 <title>App · Samuel Vieira</title>
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="stylesheet" href="style.css?v=2">
+<link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
   <div class="wrap">
@@ -19,6 +19,7 @@
         <div class="tag" id="tagline"></div>
         <div class="hero-actions">
           <a class="btn" id="download" aria-disabled="true">Baixar</a>
+          <a class="btn ghost" id="download-win" aria-disabled="true" hidden>Baixar para Windows</a>
           <span class="req" id="req" style="margin:0"></span>
         </div>
       </div>
@@ -72,6 +73,19 @@
       </div>
     </section>
 
+    <section class="howto" id="instalar-windows" hidden>
+      <div class="howto-head">
+        <span class="howto-badge">Windows</span>
+        <h2>Como abrir no Windows</h2>
+      </div>
+      <ol class="steps">
+        <li><b>Instale.</b> Abra o <code>setup.exe</code> baixado.</li>
+        <li><b>Se aparecer "O Windows protegeu o computador"</b>, clique em <b>Mais informações</b> e depois em
+          <b>Executar assim mesmo</b>. É o aviso para app de desenvolvedor independente.</li>
+        <li><b>Pronto.</b> Depois disso o app avisa quando houver versão nova.</li>
+      </ol>
+    </section>
+
     <footer>
       <a class="link" href="https://github.com/SAMUKANINJA">GitHub</a>
       &nbsp;·&nbsp;
@@ -103,9 +117,32 @@
       });
 
       const dl = document.getElementById("download");
-      dl.textContent = "Baixar " + app.name;
-      if (app.accent === "cyan") dl.classList.add("cyan");
-      wireSmartDownload(dl, app.repo);
+      dl.textContent = app.windows ? "Baixar para Mac" : "Baixar " + app.name;
+      if (app.accent === "cyan" || app.accent === "rec") dl.classList.add(app.accent);
+      wireSmartDownload(dl, app.repo, "mac");
+      if (app.windows) {
+        const win = document.getElementById("download-win");
+        win.hidden = false;
+        wireSmartDownload(win, app.repo, "win");
+        document.getElementById("instalar-windows").hidden = false;
+      }
+
+      // Every installer of a release, named by who it is for.
+      const ROTULOS = [
+        [function (n) { return n.endsWith(".dmg") && n.includes("x64"); }, "Mac Intel"],
+        [function (n) { return n.endsWith(".dmg") && n.includes("arm64"); }, "Mac Apple Silicon"],
+        [function (n) { return n.endsWith("-setup.exe"); }, "Windows"],
+        [function (n) { return n.endsWith("-portatil.exe"); }, "Windows portátil"],
+      ];
+      function downloadsOf(r) {
+        return (r.assets || []).map(function (a) {
+          const n = a.name.toLowerCase();
+          const hit = ROTULOS.find(function (x) { return x[0](n); });
+          if (hit) return { url: a.browser_download_url, label: hit[1] };
+          if (n.endsWith(".dmg")) return { url: a.browser_download_url, label: "Baixar " + a.name };
+          return null;
+        }).filter(Boolean);
+      }
 
       // Version history from the public releases repo.
       const box = document.getElementById("releases");
@@ -115,7 +152,7 @@
           if (!list.length) { box.innerHTML = '<div class="loading">Nenhuma versão publicada ainda.</div>'; return; }
           box.innerHTML = "";
           list.forEach(function (r, i) {
-            const dmg = dmgOf(r);
+            const files = downloadsOf(r);
             const el = document.createElement("div");
             el.className = "rel";
             const notes = (r.body || "").trim();
@@ -126,7 +163,7 @@
                 '<span class="rel-date">' + formatDate(r.published_at) + "</span>" +
               "</div>" +
               (notes ? '<div class="rel-notes"></div>' : "") +
-              (dmg ? '<a class="rel-dl" href="' + dmg.browser_download_url + '">↓ Baixar ' + dmg.name + "</a>" : "");
+              files.map(function (f) { return '<a class="rel-dl" href="' + f.url + '">↓ ' + f.label + "</a>"; }).join(" &nbsp; ");
             if (notes) el.querySelector(".rel-notes").textContent = notes;
             box.appendChild(el);
           });
