@@ -3,18 +3,6 @@
 // the GitHub API can be read anonymously (and is CORS-enabled).
 
 const APPS = {
-  callai: {
-    name: "Call.AI",
-    icon: "callai.png",
-    accent: "rec",
-    tagline: "Grava, transcreve e escreve a ata das suas reuniões.",
-    description:
-      "Call.AI grava as reuniões do Teams, do Zoom e do Meet com duas faixas, a sua voz e a dos participantes, e avisa por uma pílula discreta quando uma chamada começa. Transcreve na própria máquina ou com a sua chave da OpenAI, separa quem falou e escreve a ata com as tarefas. As gravações ficam no seu computador; nada de conta.",
-    features: ["Gravação em duas faixas", "Aviso de reunião", "Transcrição", "Ata e tarefas", "Mac · Windows"],
-    req: "macOS 13 ou superior (Apple Silicon ou Intel) · Windows 10/11 64 bits",
-    repo: "SAMUKANINJA/CallAI-releases",
-    windows: true,
-  },
   nicho: {
     name: "Nicho",
     icon: "nicho.png",
